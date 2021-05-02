@@ -22,10 +22,12 @@
                 <label class="col-md-2 control-label">Contact Preference</label>
                 <div class="col-md-8">
                     <label class="radio-inline">
-                        <input type="radio" value="email" formControlName="contactPreference">Email
+                        <input type="radio" value="email" formControlName="contactPreference"
+                            (click)="onContactPrefernceChange('email')">Email
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" value="phone" formControlName="contactPreference">Phone
+                        <input type="radio" value="phone" formControlName="contactPreference"
+                            (click)="onContactPrefernceChange('phone')">Phone
                     </label>
                 </div>
             </div>

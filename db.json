@@ -51,6 +51,20 @@
           "proficiency": "advanced"
         }
       ]
+    },
+    {
+      "id": 4,
+      "fullName": "Saroja",
+      "contactPreference": "email",
+      "email": "Saroja@gmail.com",
+      "phone": "123456789",
+      "skills": [
+        {
+          "skillName": "C#",
+          "experienceInYears": "1",
+          "proficiency": "beginner"
+        }
+      ]
     }
   ]
 }

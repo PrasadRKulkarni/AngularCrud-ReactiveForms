@@ -12,10 +12,8 @@ import { EmployeeService } from './services/employee.service';
 })
 export class EditEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
-  fullNameLength: Number = 0;
   id: number;
   employee: IEmployee;
-
 
   // This object will hold the messages to be displayed to the user
   // Notice, each key in this object has the same name as the
@@ -94,10 +92,10 @@ export class EditEmployeeComponent implements OnInit {
       this.logValidationErrors(this.employeeForm);
     });
 
-    this.employeeForm.get('contactPreference')
-      .valueChanges.subscribe((data: string) => {
-        this.onContactPrefernceChange(data);
-      });
+    // this.employeeForm.get('contactPreference')
+    //   .valueChanges.subscribe((data: string) => {
+    //     this.onContactPrefernceChange(data);
+    //   });
 
   }
 
@@ -113,11 +111,11 @@ export class EditEmployeeComponent implements OnInit {
   getEmployee(id: number) {
     this._empService.getEmployee(id)
       .subscribe(
-        (employee: IEmployee) => {
+        (employeeReceivedAPI: IEmployee) => {
           // Store the employee object returned by the
           // REST API in the employee property
-          this.employee = employee;
-          this.editEmployee(employee);
+          this.employee = employeeReceivedAPI;
+          this.editEmployee(employeeReceivedAPI);
         },
         (err: any) => console.log(err)
       );
@@ -149,8 +147,6 @@ export class EditEmployeeComponent implements OnInit {
 
     return formArray;
   }
-
-
 
   mapFormValuesToEmployeeModel() {
     this.employee.fullName = this.employeeForm.value.fullName;

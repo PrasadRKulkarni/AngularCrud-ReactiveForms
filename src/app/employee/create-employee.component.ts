@@ -12,7 +12,6 @@ import { EmployeeService } from './services/employee.service';
 export class CreateEmployeeComponent implements OnInit {
 
   employeeForm: FormGroup;
-  fullNameLength: Number = 0;
   employee: IEmployee;
 
   // This object will hold the messages to be displayed to the user
@@ -66,12 +65,13 @@ export class CreateEmployeeComponent implements OnInit {
 
     //Using Form Builder method:
     this.employeeForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
 
       contactPreference: ['email'],
 
       emailGroup: this.fb.group({
         email: ['', [Validators.required, this.emailDomain('gmail.com')]],
+
         confirmEmail: ['', [Validators.required]],
       }, { validator: this.matchEmails }),
 
@@ -86,20 +86,25 @@ export class CreateEmployeeComponent implements OnInit {
       ]),
     });
 
-
     // When any of the form control value in employee form changes
     // our validation function logValidationErrors() is called
     this.employeeForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.employeeForm);
     });
 
-    this.employeeForm.get('contactPreference')
-      .valueChanges.subscribe((data: string) => {
-        this.onContactPrefernceChange(data);
-      });
+    // this.employeeForm.get('contactPreference')
+    //   .valueChanges.subscribe((data: string) => {
+    //     this.onContactPrefernceChange(data);
+    //   });
   }
 
-
+  addSkillsFormGroup(): FormGroup {
+    return this.fb.group({
+      skillName: ['', Validators.required],
+      experienceInYears: ['', Validators.required],
+      proficiency: ['', Validators.required]
+    });
+  }
 
   onSubmit(): void {
     this.mapFormValuesToEmployeeModel();
@@ -120,10 +125,9 @@ export class CreateEmployeeComponent implements OnInit {
 
   //Log Validation messages to console.
   onLoadDataClick(): void {
-
   }
 
-  logValidationErrors(group: FormGroup = this.employeeForm): void {
+  logValidationErrors(group: FormGroup): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       this.formErrors[key] = '';
@@ -142,12 +146,12 @@ export class CreateEmployeeComponent implements OnInit {
           }
         }
       }
-
+      //Recursively call this function for nested form groups
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       }
-
     });
+    //console.log(this.formErrors)
   }
 
   // If the Selected Radio Button value is "phone", then add the
@@ -198,14 +202,6 @@ export class CreateEmployeeComponent implements OnInit {
     } else {
       return { 'emailMismatch': true };
     }
-  }
-
-  addSkillsFormGroup(): FormGroup {
-    return this.fb.group({
-      skillName: ['', Validators.required],
-      experienceInYears: ['', Validators.required],
-      proficiency: ['', Validators.required]
-    });
   }
 
   addSkillButtonClick(): void {

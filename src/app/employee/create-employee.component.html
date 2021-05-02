@@ -11,7 +11,7 @@
                 <label class="col-sm-2 control-label" for="fullName">Full Name</label>
                 <div class="col-sm-8">
                     <input id="fullName" type="text" class="form-control" formControlName="fullName"
-                        (blur)="logValidationErrors()">
+                        (blur)="logValidationErrors(employeeForm)">
                     <span class="help-block" *ngIf="formErrors.fullName">
                         {{formErrors.fullName}}
                     </span>
@@ -22,10 +22,12 @@
                 <label class="col-md-2 control-label">Contact Preference</label>
                 <div class="col-md-8">
                     <label class="radio-inline">
-                        <input type="radio" value="email" formControlName="contactPreference">Email
+                        <input type="radio" value="email" formControlName="contactPreference"
+                            (click)="onContactPrefernceChange('email')">Email
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" value="phone" formControlName="contactPreference">Phone
+                        <input type="radio" value="phone" formControlName="contactPreference"
+                            (click)="onContactPrefernceChange('phone')">Phone
                     </label>
                 </div>
             </div>
@@ -37,7 +39,7 @@
                     <label class="col-sm-2 control-label" for="email">Email</label>
                     <div class="col-sm-8">
                         <input id="email" type="text" class="form-control" formControlName="email"
-                            (blur)="logValidationErrors()">
+                            (blur)="logValidationErrors(employeeForm)">
                         <span class="help-block" *ngIf="formErrors.email">
                             {{formErrors.email}}
                         </span>
@@ -51,7 +53,7 @@
                     </label>
                     <div class="col-sm-8">
                         <input id="confirmEmail" type="text" class="form-control" formControlName="confirmEmail"
-                            (blur)="logValidationErrors()">
+                            (blur)="logValidationErrors(employeeForm)">
                         <span class="help-block" *ngIf="formErrors.confirmEmail || formErrors.emailGroup">
                             {{formErrors.confirmEmail ? formErrors.confirmEmail
                             : formErrors.emailGroup}}
@@ -65,7 +67,7 @@
                 <label class="col-sm-2 control-label" for="phone">Phone</label>
                 <div class="col-sm-8">
                     <input id="phone" type="text" class="form-control" formControlName="phone"
-                        (blur)="logValidationErrors()">
+                        (blur)="logValidationErrors(employeeForm)">
                     <span class="help-block" *ngIf="formErrors.phone">
                         {{formErrors.phone}}
                     </span>
